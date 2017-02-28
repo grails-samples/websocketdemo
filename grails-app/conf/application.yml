@@ -1,6 +1,6 @@
 ---
 grails:
-    profile: web
+    profile: org.grails.profiles:react:1.0.2
     codegen:
         defaultPackage: websocketdemo
     spring:

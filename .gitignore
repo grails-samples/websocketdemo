@@ -9,3 +9,6 @@ build/
 .project
 .settings
 .classpath
+node_modules
+grails-app/assets/javascripts/a7f7d781d4c72b033b4937cf43dee8bd.gif
+grails-app/assets/javascripts/bundle.js

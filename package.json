@@ -23,8 +23,6 @@
     "jsdom": "9.1.0",
     "mocha": "2.4.5",
     "react-addons-test-utils": "15.3.2",
-    "sockjs-client": "^1.1.2",
-    "webstomp-client": "^1.0.6",
     "style-loader": "0.13.1",
     "url-loader": "0.5.7",
     "webpack": "1.13.1"

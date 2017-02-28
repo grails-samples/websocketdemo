@@ -23,35 +23,22 @@ class App extends React.Component {
   }
 
   socketSetup() {
-    console.log('socketSetup...');
-
-    const messageHandler = message => {
-      console.log('got message!');
-      console.log(message.body);
-      this.updateMessages(JSON.parse(message.body));
-    };
-
-    client.connect({}, function () {
-      client.subscribe("/topic/message", messageHandler);
-    });
+    const messageHandler = message =>  this.updateMessages(JSON.parse(message.body));
+    client.connect({}, () => client.subscribe("/topic/message", messageHandler));
   }
 
-  addMessage() {
-    console.log('addMessage: ' + this.state.newMessage);
+  addMessage(event) {
+    event.preventDefault();
+
     let message = this.state.newMessage;
     client.send("/app/message", {}, JSON.stringify(message));
   }
 
   updateNewMessage(event) {
-    console.log('updateNewMessage: ' + event.target.value);
-    let state = this.state;
-    state.newMessage = event.target.value;
-    this.setState(state);
+    this.setState({newMessage: event.target.value});
   }
 
   updateMessages(message) {
-    console.log('updateMessages: ' + message);
-
     let state = this.state;
     state.messages.push(message);
 
@@ -62,14 +49,18 @@ class App extends React.Component {
     const messages = this.state.messages.map((m, idx) => <li key={idx} className="message-content">{m}</li>);
 
     return <div className="message-container">
-      <div className="form-group">
-        <div className="input-group">
 
-          <input type="text" onChange={this.updateNewMessage} placeholder="Enter Message Here"/>
+      <form onSubmit={this.addMessage}>
+        <div className="form-group">
+          <div className="input-group">
+
+            <input type="text" onChange={this.updateNewMessage} placeholder="Enter Message Here"/>
+          </div>
         </div>
-      </div>
 
-      <button id="messageButton" className="btn btn-primary" onClick={this.addMessage}>Send Message</button>
+        <input type="submit" className="btn btn-primary" value='Send Message' />
+
+      </form>
 
       <div id="messageList">
         <h2>Message:</h2>

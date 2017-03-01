@@ -30,8 +30,11 @@ class App extends React.Component {
   addMessage(event) {
     event.preventDefault();
 
-    let message = this.state.newMessage;
-    client.send("/app/message", {}, JSON.stringify(message));
+    let state = this.state;
+    client.send("/app/message", {}, JSON.stringify(state.newMessage));
+
+    state.newMessage = '';
+    this.setState(state);
   }
 
   updateNewMessage(event) {
@@ -53,8 +56,7 @@ class App extends React.Component {
       <form onSubmit={this.addMessage}>
         <div className="form-group">
           <div className="input-group">
-
-            <input type="text" onChange={this.updateNewMessage} placeholder="Enter Message Here"/>
+            <input type="text" onChange={this.updateNewMessage} placeholder="Enter Message Here" value={this.state.newMessage} />
           </div>
         </div>
 
